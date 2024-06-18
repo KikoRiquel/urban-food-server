@@ -372,5 +372,5 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
-const NODE_PORT = process.env.NODE_PORT || 5000;
-app.listen(NODE_PORT, () => console.log(`Servidor corriendo en http://localhost:${NODE_PORT}`));
+const port = process.env.PORT || 5000;
+app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
