@@ -7,22 +7,11 @@ const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
 
-const PORT = process.env.PORT || 3000;
-
-const MYSQLDATABASE = process.env.MYSQLDATABASE || "burguer";
-const MYSQLHOST = process.env.MYSQLHOST || "localhost";
-const MYSQLPASSWORD = process.env.MYSQLPASSWORD || "";
-const MYSQLPORT = process.env.MYSQLPORT || 3306;
-const MYSQLUSER = process.env.MYSQLUSER || "root";
-
-// Conexión a la base de datos
-const db = mysql.createConnection({
-  user: MYSQLUSER,
-  password: MYSQLPASSWORD,
-  host: MYSQLHOST,
-  port: MYSQLPORT,
-  database: MYSQLDATABASE,
-});
+const DB_HOST = process.env.DB_HOST || "localhost";
+const DB_USER = process.env.DB_USER || "root";
+const DB_PASSWORD = process.env.DB_PASSWORD || "";
+const DB_NAME = process.env.DB_NAME || "burguer";
+const DB_PORT = process.env.DB_PORT || 3306;
 
 const app = express();
 const secretKey = "your_secret_key"; // Cambia esto por una clave secreta fuerte
@@ -35,6 +24,15 @@ const ticketsDir = path.join(__dirname, "tickets");
 if (!fs.existsSync(ticketsDir)) {
   fs.mkdirSync(ticketsDir);
 }
+
+// Conexión a la base de datos
+const db = mysql.createConnection({
+  host: DB_HOST,
+  user: DB_USER,
+  password: DB_PASSWORD,
+  database: DB_NAME,
+  port: DB_PORT,
+});
 
 db.connect((error) => {
   if (error) {
@@ -407,6 +405,7 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
+const port = process.env.PORT || 5000;
 app.listen(port, () =>
   console.log(`Servidor corriendo en http://localhost:${port}`)
 );
