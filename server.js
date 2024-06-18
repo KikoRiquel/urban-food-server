@@ -19,12 +19,19 @@ if (!fs.existsSync(ticketsDir)) {
   fs.mkdirSync(ticketsDir);
 }
 
+const MYSQLDATABASE = process.env.MYSQLDATABASE || "burguer";
+const MYSQLHOST = process.env.MYSQLHOST || "localhost";
+const MYSQLPASSWORD = process.env.MYSQLPASSWORD || "";
+const MYSQLPORT = process.env.MYSQLPORT || "3306";
+const MYSQLUSER = process.env.MYSQLUSER || "root";
+
 // Conexión a la base de datos
 const db = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'burger'
+  host: MYSQLHOST,
+  user: MYSQLUSER,
+  password: MYSQLPASSWORD,
+  database: MYSQLDATABASE,
+  port: MYSQLPORT,
 });
 
 db.connect((error) => {
