@@ -1,23 +1,11 @@
 const express = require("express");
-const mysql = require("mysql2");
+const mysql = require("mysql");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const PDFDocument = require("pdfkit");
 const fs = require("fs");
 const path = require("path");
-
-const app = express();
-const secretKey = "your_secret_key"; // Cambia esto por una clave secreta fuerte
-
-app.use(cors());
-app.use(express.json());
-
-// Verificar y crear el directorio `tickets` si no existe
-const ticketsDir = path.join(__dirname, "tickets");
-if (!fs.existsSync(ticketsDir)) {
-  fs.mkdirSync(ticketsDir);
-}
 
 const PORT = process.env.PORT || 3000;
 
@@ -36,13 +24,25 @@ const db = mysql.createConnection({
   database: MYSQLDATABASE,
 });
 
-// db.connect((error) => {
-//   if (error) {
-//     console.error("Error connecting: " + error.stack);
-//     return;
-//   }
-//   console.log("Connected as id " + db.threadId);
-// });
+const app = express();
+const secretKey = "your_secret_key"; // Cambia esto por una clave secreta fuerte
+
+app.use(cors());
+app.use(express.json());
+
+// Verificar y crear el directorio `tickets` si no existe
+const ticketsDir = path.join(__dirname, "tickets");
+if (!fs.existsSync(ticketsDir)) {
+  fs.mkdirSync(ticketsDir);
+}
+
+db.connect((error) => {
+  if (error) {
+    console.error("Error connecting: " + error.stack);
+    return;
+  }
+  console.log("Connected as id " + db.threadId);
+});
 
 // Middleware para proteger rutas
 const authenticateToken = (req, res, next) => {
@@ -138,7 +138,8 @@ app.get("/carta", (req, res) => {
   `;
   db.query(query, (error, results) => {
     if (error) throw error;
-    res.send(results);
+    res.json(results);
+    console.log(res.json(results));
   });
 });
 
@@ -406,5 +407,6 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
-app.listen(PORT);
-console.log("Server on port", PORT);
+app.listen(port, () =>
+  console.log(`Servidor corriendo en http://localhost:${port}`)
+);
