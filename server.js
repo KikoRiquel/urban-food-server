@@ -36,13 +36,13 @@ const db = mysql.createConnection({
   database: MYSQLDATABASE,
 });
 
-db.connect((error) => {
-  if (error) {
-    console.error("Error connecting: " + error.stack);
-    return;
-  }
-  console.log("Connected as id " + db.threadId);
-});
+// db.connect((error) => {
+//   if (error) {
+//     console.error("Error connecting: " + error.stack);
+//     return;
+//   }
+//   console.log("Connected as id " + db.threadId);
+// });
 
 // Middleware para proteger rutas
 const authenticateToken = (req, res, next) => {
