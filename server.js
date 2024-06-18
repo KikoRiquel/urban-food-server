@@ -19,6 +19,8 @@ if (!fs.existsSync(ticketsDir)) {
   fs.mkdirSync(ticketsDir);
 }
 
+const PORT = process.env.PORT || 3000
+
 const MYSQLDATABASE = process.env.MYSQLDATABASE || "burguer";
 const MYSQLHOST = process.env.MYSQLHOST || "localhost";
 const MYSQLPASSWORD = process.env.MYSQLPASSWORD || "";
@@ -27,12 +29,13 @@ const MYSQLUSER = process.env.MYSQLUSER || "root";
 
 // Conexión a la base de datos
 const db = mysql.createConnection({
-  host: MYSQLHOST,
   user: MYSQLUSER,
   password: MYSQLPASSWORD,
-  database: MYSQLDATABASE,
+  host: MYSQLHOST,
   port: MYSQLPORT,
+  database: MYSQLDATABASE
 });
+
 
 db.connect((error) => {
   if (error) {
@@ -372,5 +375,4 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
