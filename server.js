@@ -127,7 +127,7 @@ app.get('/carta', (req, res) => {
   `;
   db.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.send(results);
   });
 });
 
