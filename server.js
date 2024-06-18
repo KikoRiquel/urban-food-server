@@ -1,17 +1,17 @@
 const express = require('express');
 const mysql = require('mysql');
-const cors = require('cors');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const PDFDocument = require('pdfkit');
-const fs = require('fs');
-const path = require('path');
+// const cors = require('cors');
+// const bcrypt = require('bcryptjs');
+// const jwt = require('jsonwebtoken');
+// const PDFDocument = require('pdfkit');
+// const fs = require('fs');
+// const path = require('path');
 
 const app = express();
-const secretKey = 'your_secret_key'; // Cambia esto por una clave secreta fuerte
+// const secretKey = 'your_secret_key'; // Cambia esto por una clave secreta fuerte
 
-app.use(cors());
-app.use(express.json());
+// app.use(cors());
+// app.use(express.json());
 
 const MYSQLDATABASE = process.env.MYSQLDATABASE || "burguer";
 const MYSQLHOST = process.env.MYSQLHOST || "localhost";
