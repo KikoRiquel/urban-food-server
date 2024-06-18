@@ -126,8 +126,11 @@ app.get('/carta', (req, res) => {
     LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
   `;
   db.query(query, (error, results) => {
+    console.log("🚀 ~ db.query ~ error:", error)
+    console.log("🚀 ~ db.query ~ results:", results)
     if (error) throw error;
     res.send(results);
+    
   });
 });
 
