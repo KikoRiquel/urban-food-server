@@ -119,20 +119,35 @@ app.get('/', (req, res) => {
 });
 
 // Ruta para obtener la carta del restaurante
-app.get('/carta', (req, res) => {
-  const query = `
-    SELECT Productos.*, Categorias.nombre AS categoria
-    FROM Productos
-    LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
-  `;
-  db.query(query, (error, results) => {
-    console.log("🚀 ~ db.query ~ error:", error)
-    console.log("🚀 ~ db.query ~ results:", results)
-    if (error) throw error;
-    res.send(results);
-    
-  });
+app.get('/carta', async (req, res) => {
+  // const query = `
+  //   SELECT Productos.*, Categorias.nombre AS categoria
+  //   FROM Productos
+  //   LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
+  // `;
+  // db.query(query, (error, results) => {
+  //   console.log("🚀 ~ db.query ~ error:", error)
+  //   console.log("🚀 ~ db.query ~ results:", results)
+  //   if (error) throw error;
+  //   res.send(results);
+  // });
+  const [rows] = await db.query('SELECT * FROM Productos')
+  res.json(rows)
 });
+
+// app.get('/carta', (req, res) => {
+//   const query = `
+//     SELECT Productos.*, Categorias.nombre AS categoria
+//     FROM Productos
+//     LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
+//   `;
+//   db.query(query, (error, results) => {
+//     console.log("🚀 ~ db.query ~ error:", error)
+//     console.log("🚀 ~ db.query ~ results:", results)
+//     if (error) throw error;
+//     res.send(results);
+//   });
+// });
 
 // Ruta para realizar un pedido
 app.post('/pedido', (req, res) => {
