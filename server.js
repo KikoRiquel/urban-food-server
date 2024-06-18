@@ -107,47 +107,36 @@ app.post('/login', (req, res) => {
 });
 
 // Ruta para obtener la página de inicio con el formulario de introducción del número de mesa
-app.get('/', (req, res) => {
-  res.send(`
-    <h1>Bienvenido a nuestro restaurante</h1>
-    <form action="/pedido" method="post">
-      <label for="mesa_id">Número de mesa:</label>
-      <input type="number" id="mesa_id" name="mesa_id" required>
-      <button type="submit">Ingresar</button>
-    </form>
-  `);
-});
-
-// Ruta para obtener la carta del restaurante
-app.get('/carta', async (req, res) => {
-  // const query = `
-  //   SELECT Productos.*, Categorias.nombre AS categoria
-  //   FROM Productos
-  //   LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
-  // `;
-  // db.query(query, (error, results) => {
-  //   console.log("🚀 ~ db.query ~ error:", error)
-  //   console.log("🚀 ~ db.query ~ results:", results)
-  //   if (error) throw error;
-  //   res.send(results);
-  // });
+app.get('/', async (req, res) => {
   const [rows] = await db.query('SELECT * FROM Productos')
   res.json(rows)
 });
-
-// app.get('/carta', (req, res) => {
-//   const query = `
-//     SELECT Productos.*, Categorias.nombre AS categoria
-//     FROM Productos
-//     LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
-//   `;
-//   db.query(query, (error, results) => {
-//     console.log("🚀 ~ db.query ~ error:", error)
-//     console.log("🚀 ~ db.query ~ results:", results)
-//     if (error) throw error;
-//     res.send(results);
-//   });
+// app.get('/', (req, res) => {
+//   res.send(`
+//     <h1>Bienvenido a nuestro restaurante</h1>
+//     <form action="/pedido" method="post">
+//       <label for="mesa_id">Número de mesa:</label>
+//       <input type="number" id="mesa_id" name="mesa_id" required>
+//       <button type="submit">Ingresar</button>
+//     </form>
+//   `);
 // });
+
+// Ruta para obtener la carta del restaurante
+app.get('/carta', (req, res) => {
+  const query = `
+    SELECT Productos.*, Categorias.nombre AS categoria
+    FROM Productos
+    LEFT JOIN Categorias ON Productos.categoria_id = Categorias.categoria_id
+  `;
+  db.query(query, (error, results) => {
+    console.log("🚀 ~ db.query ~ error:", error)
+    console.log("🚀 ~ db.query ~ results:", results)
+    if (error) throw error;
+    res.send(results);
+    
+  });
+});
 
 // Ruta para realizar un pedido
 app.post('/pedido', (req, res) => {
