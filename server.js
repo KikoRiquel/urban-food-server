@@ -22,7 +22,7 @@ if (!fs.existsSync(ticketsDir)) {
 const MYSQLDATABASE = process.env.MYSQLDATABASE || "burguer";
 const MYSQLHOST = process.env.MYSQLHOST || "localhost";
 const MYSQLPASSWORD = process.env.MYSQLPASSWORD || "";
-const MYSQLPORT = process.env.MYSQLPORT || "3306";
+const MYSQLPORT = process.env.MYSQLPORT || "5000";
 const MYSQLUSER = process.env.MYSQLUSER || "root";
 
 // Conexión a la base de datos
@@ -127,7 +127,7 @@ app.get('/carta', (req, res) => {
   `;
   db.query(query, (error, results) => {
     if (error) throw error;
-    res.send(results);
+    res.json(results);
   });
 });
 
