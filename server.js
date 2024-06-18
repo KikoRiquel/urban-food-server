@@ -372,4 +372,4 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
-app.listen(MYSQLPORT, () => console.log(`Servidor corriendo en ${MYSQLHOST, MYSQLPORT}`));
+app.listen(MYSQLPORT, () => console.log(`Servidor corriendo en ${MYSQLHOST}`));
