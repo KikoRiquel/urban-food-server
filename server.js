@@ -127,7 +127,7 @@ app.get('/carta', (req, res) => {
   `;
   db.query(query, (error, results) => {
     if (error) throw error;
-    res.json(results);
+    res.send(results);
   });
 });
 
@@ -372,5 +372,4 @@ app.use((req, res, next) => {
 });
 
 // Iniciar el servidor
-const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
+app.listen(MYSQLPORT, () => console.log(`Servidor corriendo en ${MYSQLHOST, MYSQLPORT}`));
