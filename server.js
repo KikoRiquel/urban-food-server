@@ -373,4 +373,6 @@ app.use((req, res, next) => {
 
 // Iniciar el servidor
 const port = process.env.PORT || 3000;
-app.listen(port, () => console.log(`Servidor corriendo en http://localhost:${port}`));
+app.listen(port);
+console.log("🚀 ~ port:", port)
+
